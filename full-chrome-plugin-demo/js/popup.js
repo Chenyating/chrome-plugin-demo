@@ -12,49 +12,6 @@ $(function() {
 
 });
 
-// 打开后台页
-$('#open_background').click(e => {
-	window.open(chrome.extension.getURL('background.html'));
-});
-
-// 调用后台JS
-$('#invoke_background_js').click(e => {
-	var bg = chrome.extension.getBackgroundPage();
-	bg.testBackground();
-});
-
-// 获取后台页标题
-$('#get_background_title').click(e => {
-	var bg = chrome.extension.getBackgroundPage();
-	alert(bg.document.title);
-});
-
-// 设置后台页标题
-$('#set_background_title').click(e => {
-	var title = prompt('请输入background的新标题：', '这是新标题');
-	var bg = chrome.extension.getBackgroundPage();
-	bg.document.title = title;
-	alert('修改成功！');
-});
-
-// 自定义窗体大小
-$('#custom_window_size').click(() => {
-	chrome.windows.getCurrent({}, (currentWindow) => {
-		var startLeft = 10;
-		chrome.windows.update(currentWindow.id, 
-		{
-			left: startLeft * 10,
-			top: 100,
-			width: 800,
-			height: 600
-		});
-		var inteval = setInterval(() => {
-			if(startLeft >= 40) clearInterval(inteval);
-			chrome.windows.update(currentWindow.id, {left: (++startLeft) * 10});
-		}, 50);
-	});
-});
-
 // 最大化窗口
 $('#max_current_window').click(() => {
 	chrome.windows.getCurrent({}, (currentWindow) => {
@@ -195,14 +152,14 @@ $('#update_font_size').click(() => {
 
 // 显示badge
 $('#show_badge').click(() => {
-	chrome.browserAction.setBadgeText({text: 'New'});
-	chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
+	chrome.action.setBadgeText({text: 'New'});
+	chrome.action.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
 });
 
 // 隐藏badge
 $('#hide_badge').click(() => {
-	chrome.browserAction.setBadgeText({text: ''});
-	chrome.browserAction.setBadgeBackgroundColor({color: [0, 0, 0, 0]});
+	chrome.action.setBadgeText({text: ''});
+	chrome.action.setBadgeBackgroundColor({color: [0, 0, 0, 0]});
 });
 
 // 显示桌面通知

@@ -348,7 +348,7 @@ function injectCustomJs(jsPath)
 
 # Chrome插件的8种展示形式
 
-## browserAction(浏览器右上角)
+## action(浏览器右上角)
 
 通过配置`browser_action`可以在浏览器的右上角增加一个图标，一个`browser_action`可以拥有一个图标，一个`tooltip`，一个`badge`和一个`popup`。
 
@@ -378,8 +378,8 @@ function injectCustomJs(jsPath)
 所谓`badge`就是在图标上显示一些文本，可以用来更新一些小的扩展状态提示信息。因为badge空间有限，所以只支持4个以下的字符（英文4个，中文2个）。badge无法通过配置文件来指定，必须通过代码实现，设置badge文字和颜色可以分别使用`setBadgeText()`和`setBadgeBackgroundColor()`。
 
 ```javascript
-chrome.browserAction.setBadgeText({text: 'new'});
-chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
+chrome.action.setBadgeText({text: 'new'});
+chrome.action.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
 ```
 
 效果：
@@ -388,19 +388,19 @@ chrome.browserAction.setBadgeBackgroundColor({color: [255, 0, 0, 255]});
 
 ## pageAction(地址栏右侧)
 
-所谓`pageAction`，指的是只有当某些特定页面打开才显示的图标，它和`browserAction`最大的区别是一个始终都显示，一个只在特定情况才显示。
+所谓`pageAction`，指的是只有当某些特定页面打开才显示的图标，它和`action`最大的区别是一个始终都显示，一个只在特定情况才显示。
 
 需要特别说明的是早些版本的Chrome是将pageAction放在地址栏的最右边，左键单击弹出popup，右键单击则弹出相关默认的选项菜单：
 
 ![](http://image.liuxianan.com/201705/20170531_103311_849_4399.png)
 
-而新版的Chrome更改了这一策略，pageAction和普通的browserAction一样也是放在浏览器右上角，只不过没有点亮时是灰色的，点亮了才是彩色的，灰色时无论左键还是右键单击都是弹出选项：
+而新版的Chrome更改了这一策略，pageAction和普通的action一样也是放在浏览器右上角，只不过没有点亮时是灰色的，点亮了才是彩色的，灰色时无论左键还是右键单击都是弹出选项：
 
 ![](http://image.liuxianan.com/201705/20170531_104038_208_9352.gif)
 
 > 具体是从哪一版本开始改的没去仔细考究，反正知道v50.0的时候还是前者，v58.0的时候已改为后者。
 
-调整之后的`pageAction`我们可以简单地把它看成是可以置灰的`browserAction`。
+调整之后的`pageAction`我们可以简单地把它看成是可以置灰的`action`。
 
 * chrome.pageAction.show(tabId) 显示图标；
 * chrome.pageAction.hide(tabId) 隐藏图标；
